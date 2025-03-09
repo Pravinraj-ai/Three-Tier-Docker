@@ -1,0 +1,41 @@
+version: '1.0'
+
+services:
+  mysql:
+    build: ./mysql 
+    container_name: compose-mysql-server-container
+    networks:
+      - backend
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+
+  app:
+    build: ./python-app  
+    container_name: compose-app-server-container 
+    depends_on:
+      - mysql
+    networks:
+      - backend
+      - frontend
+    restart: always
+
+  web:
+    build: ./web-server/compose 
+    container_name: compose-web-server-container
+    depends_on:
+      - app
+    networks:
+      - frontend
+    ports:
+      - "9090:8080"
+    restart: always
+
+networks:
+  backend:
+    driver: bridge
+  frontend:
+    driver: bridge
+
+volumes:
+  mysql_data:
