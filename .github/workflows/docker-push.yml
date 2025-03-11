@@ -27,6 +27,12 @@ jobs:
         run: |
           docker compose build
           docker images
-          docker push three-tier-docker-mysql
-          docker push three-tier-docker-app
-          docker push three-tier-docker-web
+
+                  
+          docker tag three-tier-docker-mysql ghcr.io/pravinraj-ai/temp-pravin/three-tier-docker-mysql:latest
+          docker tag three-tier-docker-app ghcr.io/pravinraj-ai/temp-pravin/three-tier-docker-app:latest
+          docker tag three-tier-docker-web ghcr.io/pravinraj-ai/temp-pravin/three-tier-docker-web:latest
+          
+          docker push ghcr.io/pravinraj-ai/temp-pravin/three-tier-docker-mysql:latest
+          docker push ghcr.io/pravinraj-ai/temp-pravin/three-tier-docker-app:latest
+          docker push ghcr.io/pravinraj-ai/temp-pravin/three-tier-docker-web:latest
